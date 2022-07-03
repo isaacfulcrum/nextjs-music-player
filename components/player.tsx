@@ -41,7 +41,7 @@ const Player = ({ songs, activeSong }) => {
     let timerId;
     if (playing && !isSeeking) {
       const f = () => {
-        setSeek(soundRef.current?.seek() ?? 0);
+        setSeek(soundRef.current.seek());
         timerId = requestAnimationFrame(f);
       };
       timerId = requestAnimationFrame(f);
@@ -106,7 +106,7 @@ const Player = ({ songs, activeSong }) => {
 
   const onSeek = (e) => {
     setSeek(parseFloat(e[0]));
-    soundRef.current.seek(parseFloat(e[0]));
+    soundRef.current.seek(e[0]);
   };
 
   return (
@@ -182,7 +182,7 @@ const Player = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box width="10%">
-            <Text fontSize="xs"> {formatTime(seek)}</Text>
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box width="80%">
             <RangeSlider
@@ -190,7 +190,7 @@ const Player = ({ songs, activeSong }) => {
               aria-label={['min', 'max']}
               step={0.1}
               min={0}
-              max={duration ? duration.toFixed(2) : 0}
+              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
               onChange={onSeek}
               value={[seek]}
               onChangeStart={() => setIsSeeking(true)}
@@ -202,10 +202,8 @@ const Player = ({ songs, activeSong }) => {
               <RangeSliderThumb index={0} />
             </RangeSlider>
           </Box>
-          <Box width="10%">
-            <Text fontSize="xs" textAlign="right">
-              {formatTime(duration)}
-            </Text>
+          <Box width="10%" textAlign="right">
+            <Text fontSize="xs">{formatTime(duration)}</Text>
           </Box>
         </Flex>
       </Box>
