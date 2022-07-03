@@ -1,14 +1,16 @@
-import { Box, Text, Flex, Image } from "@chakra-ui/react";
-import GradientLayout from "../components/gradientLayout";
-import prisma from "../lib/prisma";
+import { Box, Text, Flex, Image } from '@chakra-ui/react';
+import GradientLayout from '../components/gradientLayout';
+import { useMe } from '../lib/hooks';
+import prisma from '../lib/prisma';
 
 const Home = ({ artists }) => {
+  const { user } = useMe();
   return (
     <GradientLayout
       color="blue"
-      title="Isaac Castro"
+      title={`${user?.firstName} ${user?.lastName}`}
       subtitle="profile"
-      description="15 public playlists"
+      description={`${user?.playlistsCount} public playlists`}
       image="https://i.pinimg.com/originals/79/80/9d/79809debe02ca1f02727c080397a34a7.jpg"
       roundImage
     >
