@@ -1,5 +1,5 @@
-import React from "react";
-import AuthForm from "../components/authForm";
+import React from 'react';
+import AuthForm from '../components/authForm';
 
 const Signup = () => {
   return <AuthForm mode="signup" />;
